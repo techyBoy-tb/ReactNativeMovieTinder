@@ -11,6 +11,10 @@ export default class Dashboard extends Component {
     };
   }
 
+  like = () => {};
+
+  dislike = () => {};
+
   // signOut = () => {
   //   firebase
   //     .auth()
@@ -22,27 +26,21 @@ export default class Dashboard extends Component {
   // };
 
   render() {
-    // this.state = {
-    //   displayName: firebase.auth().currentUser.displayName,
-    //   uid: firebase.auth().currentUser.uid,
-    // };
-    // var yourPicture = require("https://upload.wikimedia.org/wikipedia/en/7/7e/Die_hard.jpg");
-
     return (
       <View style={styles.container}>
         <View style={styles.card}>
-          <Text style={styles.title}>Die hard</Text>
+          <Text style={styles.title}>{this.props.cardInfo.title}</Text>
           <Image
             style={styles.imageStyle}
             source={{
-              uri:
-                "https://upload.wikimedia.org/wikipedia/en/4/4c/Die_Hard_With_A_Vengance.jpg",
+              uri: this.props.cardInfo.imageURL,
             }}
           />
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               style={styles.buttonFacebookStyleCross}
               activeOpacity={0.5}
+              onPress={() => this.dislike()}
             >
               <Image
                 source={require("../../assets/Images/times-solid.svg")}
@@ -52,6 +50,7 @@ export default class Dashboard extends Component {
             <TouchableOpacity
               style={styles.buttonFacebookStylePlus}
               activeOpacity={0.5}
+              onPress={() => this.like()}
             >
               <Image
                 source={require("../../assets/Images/plus-solid.svg")}
