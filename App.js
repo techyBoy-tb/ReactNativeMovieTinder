@@ -2,15 +2,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Login from "./src/Components/LoginPage/Login";
-import NewPage from "./src/Components/NewPage";
 import Signup from "./src/Components/SignUpPage/SignUpPage";
+import SwiperPage from "./src/Components/SwiperPage/SwiperPage";
 
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
     <Stack.Navigator
-      initialRouteName="NewPage"
+      initialRouteName="SwiperPage"
       screenOptions={{
         headerTitleAlign: "center",
         headerStyle: {
@@ -38,9 +38,9 @@ function MyStack() {
         options={({ title: "Dashboard" }, { headerLeft: null })}
       /> */}
       <Stack.Screen
-        name="NewPage"
-        component={NewPage}
-        options={({ title: "NewPage" }, { headerLeft: null })}
+        name="SwiperPage"
+        component={SwiperPage}
+        options={({ title: "SwiperPage" }, { headerLeft: null })}
       />
     </Stack.Navigator>
   );

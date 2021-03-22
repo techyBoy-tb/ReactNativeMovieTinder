@@ -1,7 +1,7 @@
 // components/dashboard.js
 
 import React, { Component } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 export default class Dashboard extends Component {
   constructor() {
@@ -28,36 +28,14 @@ export default class Dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.card}>
-          <Text style={styles.title}>{this.props.cardInfo.title}</Text>
+        <View style={styles.card} elevaton={5}>
+          <Text style={styles.title}>{this.props.cards.title}</Text>
           <Image
             style={styles.imageStyle}
             source={{
-              uri: this.props.cardInfo.imageURL,
+              uri: this.props.cards.imageURL,
             }}
           />
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              style={styles.buttonFacebookStyleCross}
-              activeOpacity={0.5}
-              onPress={() => this.dislike()}
-            >
-              <Image
-                source={require("../../assets/Images/times-solid.svg")}
-                style={styles.buttonImageIconStyle}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonFacebookStylePlus}
-              activeOpacity={0.5}
-              onPress={() => this.like()}
-            >
-              <Image
-                source={require("../../assets/Images/plus-solid.svg")}
-                style={styles.buttonImageIconStyle}
-              />
-            </TouchableOpacity>
-          </View>
         </View>
       </View>
     );
@@ -65,39 +43,10 @@ export default class Dashboard extends Component {
 }
 
 const styles = StyleSheet.create({
-  buttonFacebookStyleCross: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#ff4d4d",
-    borderWidth: 0.5,
-    borderColor: "#fff",
-    height: 40,
-    borderRadius: 100,
-    margin: 5,
-  },
-  buttonFacebookStylePlus: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#70db70",
-    borderWidth: 0.5,
-    borderColor: "#fff",
-    height: 40,
-    borderRadius: 100,
-    margin: 5,
-  },
-  buttonImageIconStyle: {
-    padding: 10,
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: "stretch",
-  },
-
   container: {
     width: "100%",
     height: "100%",
     padding: 20,
-    backgroundColor: "#d6d6c2",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -111,6 +60,14 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     justifyContent: "center",
     alignItems: "center",
+
+    shadowColor: "#000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 1,
+    },
   },
   title: {
     fontSize: 24,
