@@ -65,4 +65,4 @@ buck-out/
 web-build/
 
 # Config
-/Database/
+src/Database/
