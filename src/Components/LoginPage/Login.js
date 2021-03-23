@@ -46,9 +46,17 @@ export default class Login extends Component {
             email: "",
             password: "",
           });
-          this.props.navigation.navigate("Dashboard");
+          this.props.navigation.navigate("SwiperPage");
         })
-        .catch((error) => this.setState({ errorMessage: error.message }));
+        .catch((error) => {
+          this.setState({
+            errorMessage: error.message,
+            isLoading: false,
+            email: "",
+            password: "",
+          });
+          this.props.navigation.navigate("ErrorPage");
+        });
     }
   };
 

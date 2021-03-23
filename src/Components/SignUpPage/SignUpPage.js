@@ -49,9 +49,18 @@ export default class Signup extends Component {
             email: "",
             password: "",
           });
-          this.props.navigation.navigate("Login");
+          this.props.navigation.navigate("SwiperPage");
         })
-        .catch((error) => this.setState({ errorMessage: error.message }));
+        .catch((error) => {
+          this.setState({
+            errorMessage: error.message,
+            isLoading: false,
+            displayName: "",
+            email: "",
+            password: "",
+          });
+          this.props.navigation.navigate("ErrorPage");
+        });
     }
   };
 
