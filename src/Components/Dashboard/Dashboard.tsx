@@ -1,15 +1,19 @@
-// components/dashboard.js
-
 import React, { Component } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
-export default class Dashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      uid: "",
-    };
-  }
+interface Props {
+  cards: any;
+}
+// interface State {
+//   uid: "",
+// }
+export default class Dashboard extends Component<Props> {
+  // constructor() {
+  //   super();
+  state = {
+    uid: "",
+  };
+  // }
 
   like = () => {};
 
@@ -28,7 +32,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.card} elevaton={5}>
+        <View style={styles.card}>
           <Text style={styles.title}>{this.props.cards.title}</Text>
           <Image
             style={styles.imageStyle}

@@ -30,22 +30,14 @@ function MyStack() {
       <Stack.Screen
         name="Login"
         component={Login}
-        options={({ title: "Login" }, { headerLeft: null })}
       />
       <Stack.Screen
         name="SwiperPage"
         component={SwiperPage}
-        options={
-          ({
-            title: "SwiperPage",
-          },
-          { headerLeft: null })
-        }
       />
       <Stack.Screen
         name="ErrorPage"
         component={ErrorPage}
-        options={({ title: "ErrorPage" }, { headerLeft: null })}
       />
     </Stack.Navigator>
   );

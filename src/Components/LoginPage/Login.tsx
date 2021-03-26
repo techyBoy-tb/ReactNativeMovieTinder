@@ -8,24 +8,36 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
+  View
 } from "react-native";
 import firebase from "../../Database/firebase";
 
-export default class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-      isLoading: false,
-    };
-  }
+interface LoginState {
+  email: string;
+  password: string;
+  isLoading: boolean;
+  errorMessage?: string
+}
+interface LoginProps {
+  navigation: any;
+}
+export default class Login extends Component<LoginProps, LoginState> {
+  // constructor() {
+  //   super();
+  state: LoginState = {
+    email: "",
+    password: "",
+    isLoading: false,
+  };
+  // }
 
-  updateInputVal = (val, prop) => {
-    const state = this.state;
-    state[prop] = val;
-    this.setState(state);
+  updateInputVal = (val: string, th: string) => {
+    // const state = { th: val };
+    // // state[prop] = val;
+    // this.setState({
+    //   ...
+    //   state,
+    // });
   };
 
   userLogin = () => {

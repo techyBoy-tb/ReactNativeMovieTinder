@@ -8,24 +8,33 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
+  View
 } from "react-native";
 import firebase from "../../Database/firebase";
 
-export default class Signup extends Component {
-  constructor() {
-    super();
-    this.state = {
-      displayName: "",
-      email: "",
-      password: "",
-      isLoading: false,
-    };
-  }
-  updateInputVal = (val, prop) => {
-    const state = this.state;
-    state[prop] = val;
-    this.setState(state);
+export interface SignUpProps {
+  navigation: any;
+}
+
+export interface SignUpState {
+  email: string;
+  password: string;
+  isLoading: boolean;
+  errorMessage?: string;
+  displayName: string;
+}
+export default class Signup extends Component<SignUpProps, SignUpState> {
+  state: SignUpState = {
+    displayName: "",
+    email: "",
+    password: "",
+    isLoading: false,
+  };
+
+  updateInputVal = (val: string, prop: string) => {
+    // const state = this.state;
+    // state[prop] = val;
+    // this.setState(state);
   };
 
   registerUser = () => {
@@ -39,9 +48,9 @@ export default class Signup extends Component {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((res) => {
-          res.user.updateProfile({
-            displayName: this.state.displayName,
-          });
+          // res.user.updateProfile({
+          //   displayName: this.state.displayName,
+          // });
           console.log("User registered successfully!");
           this.setState({
             isLoading: false,
@@ -50,8 +59,7 @@ export default class Signup extends Component {
             password: "",
           });
           this.props.navigation.navigate("SwiperPage");
-        })
-        .catch((error) => {
+        }).catch((error) => {
           this.setState({
             errorMessage: error.message,
             isLoading: false,
@@ -61,6 +69,7 @@ export default class Signup extends Component {
           });
           this.props.navigation.navigate("ErrorPage");
         });
+      
     }
   };
 

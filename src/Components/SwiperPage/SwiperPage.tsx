@@ -5,35 +5,32 @@ import { addToList, generateRandomMovie } from "../../Service/ApiService";
 import Dashboard from "../Dashboard/Dashboard";
 import { styles } from "./SwiperPageStyles";
 
-// const cards = [
-//   {
-//     title: "Die Hard",
-//     imageURL: "https://upload.wikimedia.org/wikipedia/en/7/7e/Die_hard.jpg",
-//   },
-//   {
-//     title: "Die Hard 2",
-//     imageURL: "https://upload.wikimedia.org/wikipedia/en/2/2c/Die_Hard_2.jpg",
-//   },
-//   {
-//     title: "Die Hard 3",
-//     imageURL:
-//       "https://upload.wikimedia.org/wikipedia/en/4/4c/Die_Hard_With_A_Vengance.jpg",
-//   },
-// ];
+export interface SwiperProps {
+
+}
+
+export interface SwiperState {
+  swipedAllCards: boolean,
+  swipeDirection: string,
+  cardIndex: number,
+  yesList: Array<string>,
+  noList: Array<string>,
+  currentFilm: Object,
+}
 const cards = generateRandomMovie();
-export default class SwiperPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      swipedAllCards: false,
-      swipeDirection: "",
-      cardIndex: 0,
-      yesList: [],
-      noList: [],
-      currentFilm: {},
-    };
-  }
-  onSwiped = (yesOrNo, cardInfo) => {
+export default class SwiperPage extends Component<SwiperProps, SwiperState> {
+  private _deckSwiper: any;
+  
+  state: SwiperState = {
+    swipedAllCards: false,
+    swipeDirection: "",
+    cardIndex: 0,
+    yesList: [],
+    noList: [],
+    currentFilm: {},
+  };
+
+  onSwiped = (yesOrNo: string, cardInfo: any) => {
     if (!!cardInfo) {
       const arrayOfLists = [this.state.yesList, this.state.noList];
       const cardTitle = cardInfo.title;
@@ -44,8 +41,8 @@ export default class SwiperPage extends Component {
     }
   };
 
-  renderCards(item) {
-    this.currentFilm = item;
+  renderCards(item: string) {
+    this.state.currentFilm = item;
     if (!!item) {
       return (
         <View>
@@ -55,14 +52,14 @@ export default class SwiperPage extends Component {
     } else {
       return (
         <View style={styles.cardContainer}>
-          <View style={styles.card} elevaton={5}>
+          <View style={styles.card} >
             <Text style={styles.title}>
               Oh no! Look's like there aren't any more films
             </Text>
             <Text style={styles.title}>Try again later</Text>
           </View>
 
-          <View style={styles.card} elevaton={5}>
+          <View style={styles.card}>
             <Text style={styles.title}>Loser!</Text>
           </View>
         </View>
@@ -76,11 +73,11 @@ export default class SwiperPage extends Component {
           <DeckSwiper
             ref={(c) => (this._deckSwiper = c)}
             dataSource={cards}
-            looping={false}
-            onSwipeLeft={(cardInfo) => this.onSwiped("No", cardInfo)}
-            onSwipeRight={(cardInfo) => this.onSwiped("Yes", cardInfo)}
-            renderEmpty={() => this.renderCards(null)}
-            renderItem={(item) => this.renderCards(item)}
+            // looping={false}
+            onSwipeLeft={(cardInfo: any) => this.onSwiped("No", cardInfo)}
+            onSwipeRight={(cardInfo: any) => this.onSwiped("Yes", cardInfo)}
+            renderEmpty={() => this.renderCards('')}
+            renderItem={(item: string) => this.renderCards(item)}
           />
         </View>
         <View
@@ -101,7 +98,7 @@ export default class SwiperPage extends Component {
             activeOpacity={0.5}
             onPress={() => {
               this._deckSwiper._root.swipeLeft();
-              this.onSwiped("No", this.currentFilm);
+              this.onSwiped("No", this.state.currentFilm);
             }}
           >
             <Image
@@ -114,7 +111,7 @@ export default class SwiperPage extends Component {
             activeOpacity={0.5}
             onPress={() => {
               this._deckSwiper._root.swipeRight();
-              this.onSwiped("Yes", this.currentFilm);
+              this.onSwiped("Yes", this.state.currentFilm);
             }}
           >
             <Image

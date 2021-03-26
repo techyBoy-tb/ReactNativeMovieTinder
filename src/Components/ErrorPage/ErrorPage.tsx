@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Button, Text, View } from "react-native";
 
-export default class ErrorPage extends Component {
-  constructor() {
-    super();
-  }
+interface Props {
+  navigation: any;
+}
 
+export default class ErrorPage extends Component<Props> {
   goBack = () => {
     this.props.navigation.goBack();
   };
