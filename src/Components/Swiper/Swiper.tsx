@@ -1,6 +1,7 @@
 import { Container, DeckSwiper, Text, View } from "native-base";
 import React, { Component } from "react";
 import { Image, TouchableOpacity } from "react-native";
+import { CardModel } from "../../Models/Card.model";
 import { addToList, generateRandomMovie } from "../../Service/ApiService";
 import { SwiperProps, SwiperState } from "../../Utils/PropsState";
 import Dashboard from "../Dashboard/Dashboard";
@@ -16,10 +17,10 @@ export default class SwiperPage extends Component<SwiperProps, SwiperState> {
     cardIndex: 0,
     yesList: [],
     noList: [],
-    currentFilm: {},
+    currentFilm: cards[0]
   };
 
-  onSwiped = (yesOrNo: string, cardInfo: any) => {
+  onSwiped = (yesOrNo: string, cardInfo: CardModel) => {
     if (!!cardInfo) {
       const arrayOfLists = [this.state.yesList, this.state.noList];
       const cardTitle = cardInfo.title;
@@ -31,17 +32,15 @@ export default class SwiperPage extends Component<SwiperProps, SwiperState> {
     }
   };
 
-  renderCards(item: any) {
-    this.state.currentFilm = item;
+  renderCards(item?: CardModel) {
     if (!!item) {
-      console.log('there is an item to render!', item);
+      this.state.currentFilm = item;
       return (
         <View>
           <Dashboard cards={item}></Dashboard>
         </View>
       );
     } else {
-      console.log('there is no item to render!!!!: ', item);
       return (
         <View style={styles.cardContainer}>
           <View style={styles.card} >
@@ -67,10 +66,10 @@ export default class SwiperPage extends Component<SwiperProps, SwiperState> {
             dataSource={cards}
             // @ts-ignore  // This is a valid props var, but tsx doesn't like this
             looping={false}
-            onSwipeLeft={(cardInfo: any) => this.onSwiped("No", cardInfo)}
-            onSwipeRight={(cardInfo: any) => this.onSwiped("Yes", cardInfo)}
-            renderEmpty={() => this.renderCards('')}
-            renderItem={(item: string) => this.renderCards(item)}
+            onSwipeLeft={(cardInfo: CardModel) => this.onSwiped("No", cardInfo)}
+            onSwipeRight={(cardInfo: CardModel) => this.onSwiped("Yes", cardInfo)}
+            renderEmpty={() => this.renderCards()}
+            renderItem={(item: CardModel) => this.renderCards(item)}
           />
         </View>
         <View

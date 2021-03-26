@@ -7,10 +7,6 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
     uid: "",
   };
 
-  like = () => {};
-
-  dislike = () => {};
-
   // signOut = () => {
   //   firebase
   //     .auth()

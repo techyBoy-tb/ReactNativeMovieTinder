@@ -1,3 +1,10 @@
+import { CardModel } from "../Models/Card.model";
+
+//* Navigation *//
+export interface NavProps {
+  navigation?: any
+}
+
 //* Swiper page *//
 export interface SwiperProps {
 }
@@ -7,12 +14,11 @@ export interface SwiperState {
   cardIndex: number,
   yesList: string[],
   noList: string[],
-  currentFilm: Object
+  currentFilm: CardModel
 }
 
 //* Sign up page *//
-export interface SignUpProps {
-  navigation: any;
+export interface SignUpProps extends NavProps {
 }
 export interface SignUpState {
   email: string;
@@ -23,8 +29,7 @@ export interface SignUpState {
 }
 
 //* Login page *//
-export interface LoginProps {
-  navigation: any;
+export interface LoginProps extends NavProps {
 }
 export interface LoginState {
   email: string;
@@ -34,16 +39,14 @@ export interface LoginState {
 }
 
 //* Error page *//
-export interface ErrorProps {
-  navigation: any;
+export interface ErrorProps extends NavProps {
 }
 export interface ErrorState {
 }
 
-//* Error page *//
-export interface DashboardProps {
-  cards: any;
-  navigation?: any;
+//* Dashboard page *//
+export interface DashboardProps extends NavProps {
+  cards: CardModel;
 }
 export interface DashboardState {
   uid: string,
