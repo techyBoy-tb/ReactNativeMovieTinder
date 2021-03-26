@@ -2,21 +2,10 @@ import { Container, DeckSwiper, Text, View } from "native-base";
 import React, { Component } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import { addToList, generateRandomMovie } from "../../Service/ApiService";
+import { SwiperProps, SwiperState } from "../../Utils/PropsState";
 import Dashboard from "../Dashboard/Dashboard";
-import { styles } from "./SwiperPageStyles";
+import { styles } from "./SwiperStyles";
 
-export interface SwiperProps {
-
-}
-
-export interface SwiperState {
-  swipedAllCards: boolean,
-  swipeDirection: string,
-  cardIndex: number,
-  yesList: Array<string>,
-  noList: Array<string>,
-  currentFilm: Object,
-}
 const cards = generateRandomMovie();
 export default class SwiperPage extends Component<SwiperProps, SwiperState> {
   private _deckSwiper: any;
@@ -34,22 +23,25 @@ export default class SwiperPage extends Component<SwiperProps, SwiperState> {
     if (!!cardInfo) {
       const arrayOfLists = [this.state.yesList, this.state.noList];
       const cardTitle = cardInfo.title;
-      this.setState({
+      this.setState(currentState => ({
+        ...currentState,
         yesList: addToList(cardTitle, arrayOfLists, yesOrNo)[0],
         noList: addToList(cardTitle, arrayOfLists, yesOrNo)[1],
-      });
+      }));
     }
   };
 
-  renderCards(item: string) {
+  renderCards(item: any) {
     this.state.currentFilm = item;
     if (!!item) {
+      console.log('there is an item to render!', item);
       return (
         <View>
           <Dashboard cards={item}></Dashboard>
         </View>
       );
     } else {
+      console.log('there is no item to render!!!!: ', item);
       return (
         <View style={styles.cardContainer}>
           <View style={styles.card} >
@@ -73,7 +65,8 @@ export default class SwiperPage extends Component<SwiperProps, SwiperState> {
           <DeckSwiper
             ref={(c) => (this._deckSwiper = c)}
             dataSource={cards}
-            // looping={false}
+            // @ts-ignore  // This is a valid props var, but tsx doesn't like this
+            looping={false}
             onSwipeLeft={(cardInfo: any) => this.onSwiped("No", cardInfo)}
             onSwipeRight={(cardInfo: any) => this.onSwiped("Yes", cardInfo)}
             renderEmpty={() => this.renderCards('')}

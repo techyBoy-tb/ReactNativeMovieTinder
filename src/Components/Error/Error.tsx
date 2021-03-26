@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { Button, Text, View } from "react-native";
+import { ErrorProps, ErrorState } from "../../Utils/PropsState";
 
-interface Props {
-  navigation: any;
-}
-
-export default class ErrorPage extends Component<Props> {
+export default class ErrorPage extends Component<ErrorProps, ErrorState> {
   goBack = () => {
     this.props.navigation.goBack();
   };

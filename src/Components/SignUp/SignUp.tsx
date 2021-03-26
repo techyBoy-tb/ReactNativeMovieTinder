@@ -5,24 +5,14 @@ import {
   ActivityIndicator,
   Alert,
   Button,
-  StyleSheet,
+
   Text,
   TextInput,
   View
 } from "react-native";
 import firebase from "../../Database/firebase";
-
-export interface SignUpProps {
-  navigation: any;
-}
-
-export interface SignUpState {
-  email: string;
-  password: string;
-  isLoading: boolean;
-  errorMessage?: string;
-  displayName: string;
-}
+import { SignUpProps, SignUpState } from "../../Utils/PropsState";
+import { styles } from "./SignupStyles";
 export default class Signup extends Component<SignUpProps, SignUpState> {
   state: SignUpState = {
     displayName: "",
@@ -32,9 +22,10 @@ export default class Signup extends Component<SignUpProps, SignUpState> {
   };
 
   updateInputVal = (val: string, prop: string) => {
-    // const state = this.state;
-    // state[prop] = val;
-    // this.setState(state);
+    this.setState((currentState) => ({
+      ...currentState, 
+      [prop]: val
+    }));
   };
 
   registerUser = () => {
@@ -48,17 +39,21 @@ export default class Signup extends Component<SignUpProps, SignUpState> {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((res) => {
-          // res.user.updateProfile({
-          //   displayName: this.state.displayName,
-          // });
-          console.log("User registered successfully!");
-          this.setState({
-            isLoading: false,
-            displayName: "",
-            email: "",
-            password: "",
-          });
-          this.props.navigation.navigate("SwiperPage");
+          if (!!res && !!res.user) {
+            res.user.updateProfile({
+              displayName: this.state.displayName,
+            });
+            console.log("User registered successfully!");
+            this.setState({
+              isLoading: false,
+              displayName: "",
+              email: "",
+              password: "",
+            });
+            this.props.navigation.navigate("SwiperPage");
+          } else {
+            throw Error;
+          }
         }).catch((error) => {
           this.setState({
             errorMessage: error.message,
@@ -119,37 +114,3 @@ export default class Signup extends Component<SignUpProps, SignUpState> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 35,
-    backgroundColor: "#fff",
-  },
-  inputStyle: {
-    width: "100%",
-    marginBottom: 15,
-    paddingBottom: 15,
-    alignSelf: "center",
-    borderColor: "#ccc",
-    borderBottomWidth: 1,
-  },
-  loginText: {
-    color: "#3740FE",
-    marginTop: 25,
-    textAlign: "center",
-  },
-  preloader: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-  },
-});
