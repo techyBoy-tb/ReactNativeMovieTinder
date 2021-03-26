@@ -1,52 +1,40 @@
 import { Container, DeckSwiper, Text, View } from "native-base";
 import React, { Component } from "react";
 import { Image, TouchableOpacity } from "react-native";
+import { CardModel } from "../../Models/Card.model";
 import { addToList, generateRandomMovie } from "../../Service/ApiService";
+import { SwiperProps, SwiperState } from "../../Utils/PropsState";
 import Dashboard from "../Dashboard/Dashboard";
-import { styles } from "./SwiperPageStyles";
+import { styles } from "./SwiperStyles";
 
-// const cards = [
-//   {
-//     title: "Die Hard",
-//     imageURL: "https://upload.wikimedia.org/wikipedia/en/7/7e/Die_hard.jpg",
-//   },
-//   {
-//     title: "Die Hard 2",
-//     imageURL: "https://upload.wikimedia.org/wikipedia/en/2/2c/Die_Hard_2.jpg",
-//   },
-//   {
-//     title: "Die Hard 3",
-//     imageURL:
-//       "https://upload.wikimedia.org/wikipedia/en/4/4c/Die_Hard_With_A_Vengance.jpg",
-//   },
-// ];
 const cards = generateRandomMovie();
-export default class SwiperPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      swipedAllCards: false,
-      swipeDirection: "",
-      cardIndex: 0,
-      yesList: [],
-      noList: [],
-      currentFilm: {},
-    };
-  }
-  onSwiped = (yesOrNo, cardInfo) => {
+export default class SwiperPage extends Component<SwiperProps, SwiperState> {
+  private _deckSwiper: any;
+  
+  state: SwiperState = {
+    swipedAllCards: false,
+    swipeDirection: "",
+    cardIndex: 0,
+    yesList: [],
+    noList: [],
+    currentFilm: cards[0]
+  };
+
+  onSwiped = (yesOrNo: string, cardInfo: CardModel) => {
     if (!!cardInfo) {
       const arrayOfLists = [this.state.yesList, this.state.noList];
       const cardTitle = cardInfo.title;
-      this.setState({
+      this.setState(currentState => ({
+        ...currentState,
         yesList: addToList(cardTitle, arrayOfLists, yesOrNo)[0],
         noList: addToList(cardTitle, arrayOfLists, yesOrNo)[1],
-      });
+      }));
     }
   };
 
-  renderCards(item) {
-    this.currentFilm = item;
+  renderCards(item?: CardModel) {
     if (!!item) {
+      this.state.currentFilm = item;
       return (
         <View>
           <Dashboard cards={item}></Dashboard>
@@ -55,14 +43,14 @@ export default class SwiperPage extends Component {
     } else {
       return (
         <View style={styles.cardContainer}>
-          <View style={styles.card} elevaton={5}>
+          <View style={styles.card} >
             <Text style={styles.title}>
               Oh no! Look's like there aren't any more films
             </Text>
             <Text style={styles.title}>Try again later</Text>
           </View>
 
-          <View style={styles.card} elevaton={5}>
+          <View style={styles.card}>
             <Text style={styles.title}>Loser!</Text>
           </View>
         </View>
@@ -76,11 +64,12 @@ export default class SwiperPage extends Component {
           <DeckSwiper
             ref={(c) => (this._deckSwiper = c)}
             dataSource={cards}
+            // @ts-ignore  // This is a valid props var, but tsx doesn't like this
             looping={false}
-            onSwipeLeft={(cardInfo) => this.onSwiped("No", cardInfo)}
-            onSwipeRight={(cardInfo) => this.onSwiped("Yes", cardInfo)}
-            renderEmpty={() => this.renderCards(null)}
-            renderItem={(item) => this.renderCards(item)}
+            onSwipeLeft={(cardInfo: CardModel) => this.onSwiped("No", cardInfo)}
+            onSwipeRight={(cardInfo: CardModel) => this.onSwiped("Yes", cardInfo)}
+            renderEmpty={() => this.renderCards()}
+            renderItem={(item: CardModel) => this.renderCards(item)}
           />
         </View>
         <View
@@ -101,7 +90,7 @@ export default class SwiperPage extends Component {
             activeOpacity={0.5}
             onPress={() => {
               this._deckSwiper._root.swipeLeft();
-              this.onSwiped("No", this.currentFilm);
+              this.onSwiped("No", this.state.currentFilm);
             }}
           >
             <Image
@@ -114,7 +103,7 @@ export default class SwiperPage extends Component {
             activeOpacity={0.5}
             onPress={() => {
               this._deckSwiper._root.swipeRight();
-              this.onSwiped("Yes", this.currentFilm);
+              this.onSwiped("Yes", this.state.currentFilm);
             }}
           >
             <Image

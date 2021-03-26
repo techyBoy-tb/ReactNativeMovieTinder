@@ -16,23 +16,23 @@ export const generateRandomMovie = () => {
   ];
 };
 
-const addList = (list, filmTitle) => {
+const addList = (list: string[], filmTitle: string): string[] => {
   if (!list.includes(filmTitle)) {
     list.push(filmTitle);
   }
   return list;
 };
 
-const removeList = (list, filmTitle) => {
+const removeList = (list: string[], filmTitle: string): string[] => {
   if (list.includes(filmTitle)) {
     list = list.filter((title) => title !== filmTitle);
   }
   return list;
 };
-export const addToList = (filmTitle, yesNoLists, listToAdd) => {
+export const addToList = (filmTitle: string, yesNoLists: string[][], listToAdd: string): string[][] => {
   //TODO - This is where I would call the database and add to the no list for this user
-  let yesList = yesNoLists[0];
-  let noList = yesNoLists[1];
+  let yesList: string[] = yesNoLists[0];
+  let noList: string[] = yesNoLists[1];
   if (listToAdd === "Yes") {
     yesList = addList(yesList, filmTitle);
     noList = removeList(noList, filmTitle);

@@ -5,27 +5,26 @@ import {
   ActivityIndicator,
   Alert,
   Button,
-  StyleSheet,
+
   Text,
   TextInput,
-  View,
+  View
 } from "react-native";
 import firebase from "../../Database/firebase";
+import { LoginProps, LoginState } from "../../Utils/PropsState";
+import { styles } from "./LoginStyles";
+export default class Login extends Component<LoginProps, LoginState> {
+  state: LoginState = {
+    email: "",
+    password: "",
+    isLoading: false,
+  };
 
-export default class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-      isLoading: false,
-    };
-  }
-
-  updateInputVal = (val, prop) => {
-    const state = this.state;
-    state[prop] = val;
-    this.setState(state);
+  updateInputVal = (val: string, prop: string) => {
+    this.setState((currentState) => ({
+      ...currentState,
+      [prop]: val
+    }));
   };
 
   userLogin = () => {
@@ -100,37 +99,3 @@ export default class Login extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 35,
-    backgroundColor: "#fff",
-  },
-  inputStyle: {
-    width: "100%",
-    marginBottom: 15,
-    paddingBottom: 15,
-    alignSelf: "center",
-    borderColor: "#ccc",
-    borderBottomWidth: 1,
-  },
-  loginText: {
-    color: "#3740FE",
-    marginTop: 25,
-    textAlign: "center",
-  },
-  preloader: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-  },
-});
