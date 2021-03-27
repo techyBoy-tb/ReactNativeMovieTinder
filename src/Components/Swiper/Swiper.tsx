@@ -8,23 +8,23 @@ import Dashboard from "../Dashboard/Dashboard";
 import { styles } from "./SwiperStyles";
 
 const cards = generateRandomMovie();
-export default class SwiperPage extends Component<SwiperProps, SwiperState> {
+export default class Swiper extends Component<SwiperProps, SwiperState> {
   private _deckSwiper: any;
-  
+
   state: SwiperState = {
     swipedAllCards: false,
     swipeDirection: "",
     cardIndex: 0,
     yesList: [],
     noList: [],
-    currentFilm: cards[0]
+    currentFilm: cards[0],
   };
 
   onSwiped = (yesOrNo: string, cardInfo: CardModel) => {
     if (!!cardInfo) {
       const arrayOfLists = [this.state.yesList, this.state.noList];
       const cardTitle = cardInfo.title;
-      this.setState(currentState => ({
+      this.setState((currentState) => ({
         ...currentState,
         yesList: addToList(cardTitle, arrayOfLists, yesOrNo)[0],
         noList: addToList(cardTitle, arrayOfLists, yesOrNo)[1],
@@ -43,7 +43,7 @@ export default class SwiperPage extends Component<SwiperProps, SwiperState> {
     } else {
       return (
         <View style={styles.cardContainer}>
-          <View style={styles.card} >
+          <View style={styles.card}>
             <Text style={styles.title}>
               Oh no! Look's like there aren't any more films
             </Text>
@@ -67,7 +67,9 @@ export default class SwiperPage extends Component<SwiperProps, SwiperState> {
             // @ts-ignore  // This is a valid props var, but tsx doesn't like this
             looping={false}
             onSwipeLeft={(cardInfo: CardModel) => this.onSwiped("No", cardInfo)}
-            onSwipeRight={(cardInfo: CardModel) => this.onSwiped("Yes", cardInfo)}
+            onSwipeRight={(cardInfo: CardModel) =>
+              this.onSwiped("Yes", cardInfo)
+            }
             renderEmpty={() => this.renderCards()}
             renderItem={(item: CardModel) => this.renderCards(item)}
           />

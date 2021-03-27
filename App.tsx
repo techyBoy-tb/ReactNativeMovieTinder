@@ -1,16 +1,17 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import ErrorPage from "./src/Components/Error/Error";
+import Error from "./src/Components/Error/Error";
 import Login from "./src/Components/Login/Login";
 import Signup from "./src/Components/SignUp/SignUp";
-import SwiperPage from "./src/Components/Swiper/Swiper";
+import Swiper from "./src/Components/Swiper/Swiper";
+import TabView from "./src/Components/TabView/TabView";
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
     <Stack.Navigator
-      initialRouteName="SwiperPage"
+      initialRouteName="TabView"
       screenOptions={{
         headerTitleAlign: "center",
         headerStyle: {
@@ -27,18 +28,10 @@ function MyStack() {
         component={Signup}
         options={{ title: "Signup" }}
       />
-      <Stack.Screen
-        name="Login"
-        component={Login}
-      />
-      <Stack.Screen
-        name="SwiperPage"
-        component={SwiperPage}
-      />
-      <Stack.Screen
-        name="ErrorPage"
-        component={ErrorPage}
-      />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Swiper" component={Swiper} />
+      <Stack.Screen name="Error" component={Error} />
+      <Stack.Screen name="TabView" component={TabView} />
     </Stack.Navigator>
   );
 }
