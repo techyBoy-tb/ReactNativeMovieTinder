@@ -8,11 +8,10 @@ export default class MovieList extends Component<
   MovieListState
 > {
   render() {
-    const renderExample = () => {
-      // const Component = SwipeValueBasedUi;
-      return <SwipeValueBasedUi />;
-    };
-
-    return <View style={styles.container}>{renderExample()}</View>;
+    return (
+      <View style={styles.container}>
+        <SwipeValueBasedUi />
+      </View>
+    );
   }
 }
