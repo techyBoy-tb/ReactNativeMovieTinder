@@ -61,5 +61,14 @@ export interface MovieListState {
 }
 
 //* Swipeable Item *//
-export interface SwipeableItemProps extends NavProps {}
-export interface SwipeableItemState {}
+export interface SwipeableItemProps extends NavProps {
+  dafaultStared?: boolean;
+  onDelete: (id: number, swipeButton: any) => any;
+  id: number;
+  text: string;
+  onSwipeInitial: (swipeButton: any) => void;
+  oButtonsShowed: (swipeButton: any) => void;
+}
+export interface SwipeableItemState {
+  stared: any;
+}

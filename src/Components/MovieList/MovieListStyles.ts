@@ -1,16 +1,22 @@
-import { StatusBar, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
-  item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+  switchContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 50,
+    flexWrap: "wrap",
   },
-  title: {
-    fontSize: 32,
+  switch: {
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "black",
+    marginVertical: 2,
+    paddingVertical: 10,
+    width: Dimensions.get("window").width / 3,
   },
 });

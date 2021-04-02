@@ -5,11 +5,14 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": ["es6"],
+    "lib": ["es2017", "dom"],
     "moduleResolution": "node",
+    "module": "commonjs",
     "noEmit": true,
     "strict": true,
-    "target": "esnext"
+    "target": "es6",
+    "types": ["react", "react-native"],
+    "typeRoots": ["./node_modules/@types"]
   },
   "exclude": [
     "node_modules",
