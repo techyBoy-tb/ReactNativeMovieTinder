@@ -11,8 +11,8 @@ export interface SwiperState {
   swipedAllCards: boolean;
   swipeDirection: string;
   cardIndex: number;
-  yesList: string[];
-  noList: string[];
+  // yesList: string[];
+  // noList: string[];
   currentFilm: CardModel;
 }
 
@@ -51,7 +51,8 @@ export interface DashboardState {
 //* TabView pages *//
 export interface TabViewProps extends NavProps {}
 export interface TabViewState {
-  index: number;
+  selectedColour: string;
+  nonSelectedColour: string;
 }
 
 //* MovieList page *//
@@ -60,15 +61,16 @@ export interface MovieListState {
   selectedId: string;
 }
 
-//* Swipeable Item *//
-export interface SwipeableItemProps extends NavProps {
-  dafaultStared?: boolean;
-  onDelete: (id: number, swipeButton: any) => any;
-  id: number;
-  text: string;
-  onSwipeInitial: (swipeButton: any) => void;
-  oButtonsShowed: (swipeButton: any) => void;
+//* Anon Item *//
+export interface AnonProps extends NavProps {}
+export interface AnonState {
+  name: string;
 }
-export interface SwipeableItemState {
-  stared: any;
-}
+
+//* App Item *//
+export interface AppProps extends NavProps {}
+export interface AppState {}
+
+//* Home Item *//
+export interface HomeProps extends NavProps {}
+export interface HomeState {}

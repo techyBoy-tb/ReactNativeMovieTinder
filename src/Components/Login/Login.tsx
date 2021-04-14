@@ -5,10 +5,9 @@ import {
   ActivityIndicator,
   Alert,
   Button,
-
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 import firebase from "../../Database/firebase";
 import { LoginProps, LoginState } from "../../Utils/PropsState";
@@ -17,13 +16,23 @@ export default class Login extends Component<LoginProps, LoginState> {
   state: LoginState = {
     email: "",
     password: "",
-    isLoading: false,
+    isLoading: true,
   };
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log("inside auth");
+      if (user) {
+        this.props.navigation.navigate("TabViewPage");
+      }
+      this.state.isLoading = false;
+    });
+  }
 
   updateInputVal = (val: string, prop: string) => {
     this.setState((currentState) => ({
       ...currentState,
-      [prop]: val
+      [prop]: val,
     }));
   };
 
@@ -60,6 +69,12 @@ export default class Login extends Component<LoginProps, LoginState> {
   };
 
   render() {
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     console.log("user is logged", user);
+    //     this.props.navigation.navigate("TabViewPage");
+    //   }
+    // });
     if (this.state.isLoading) {
       return (
         <View style={styles.preloader}>
@@ -88,12 +103,17 @@ export default class Login extends Component<LoginProps, LoginState> {
           title="Signin"
           onPress={() => this.userLogin()}
         />
-
         <Text
           style={styles.loginText}
           onPress={() => this.props.navigation.navigate("Signup")}
         >
           Don't have account? Click here to signup
+        </Text>
+        <Text
+          style={styles.loginText}
+          onPress={() => this.props.navigation.navigate("Anon")}
+        >
+          Don't have account and dont wan to make one? Click here to continue.
         </Text>
       </View>
     );

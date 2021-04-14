@@ -18,13 +18,6 @@ Array(5)
     rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
   });
 export default function SwipeValueBasedUi() {
-  // const [listData, setListData] = useState([
-  //   { key: "1", text: "Film number 1" },
-  //   { key: "2", text: "Film number 2" },
-  //   { key: "3", text: "Film number 3" },
-  //   { key: "4", text: "Film number 4" },
-  //   { key: "5", text: "Film number 5" },
-  // ]);
   const [listData, setListData] = useState(
     Array(5)
       .fill("")

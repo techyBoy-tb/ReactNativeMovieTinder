@@ -15,14 +15,23 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     justifyContent: "center",
     height: 50,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
   rowBack: {
     alignItems: "center",
-    backgroundColor: "#DDD",
+    backgroundColor: "green",
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     paddingLeft: 15,
+
+    height: 45,
+    top: 2.5,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
   },
   backRightBtn: {
     alignItems: "center",
@@ -39,6 +48,10 @@ export const styles = StyleSheet.create({
   backRightBtnRight: {
     backgroundColor: "red",
     right: 0,
+    height: 45,
+    top: 2.5,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
   },
   trash: {
     height: 25,

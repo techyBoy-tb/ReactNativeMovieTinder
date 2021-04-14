@@ -15,19 +15,22 @@ export default class Swiper extends Component<SwiperProps, SwiperState> {
     swipedAllCards: false,
     swipeDirection: "",
     cardIndex: 0,
-    yesList: [],
-    noList: [],
+    // yesList: [],
+    // noList: [],
     currentFilm: cards[0],
   };
 
   onSwiped = (yesOrNo: string, cardInfo: CardModel) => {
     if (!!cardInfo) {
-      const arrayOfLists = [this.state.yesList, this.state.noList];
+      // const arrayOfLists = [this.state.yesList, this.state.noList];
       const cardTitle = cardInfo.title;
+      addToList(cardTitle, yesOrNo);
       this.setState((currentState) => ({
         ...currentState,
-        yesList: addToList(cardTitle, arrayOfLists, yesOrNo)[0],
-        noList: addToList(cardTitle, arrayOfLists, yesOrNo)[1],
+        // yesList: addToList(cardTitle, arrayOfLists, yesOrNo)[0],
+        // noList: addToList(cardTitle, arrayOfLists, yesOrNo)[1],
+        // yesList: addToList(cardTitle, yesOrNo)[0],
+        // noList: addToList(cardTitle, yesOrNo)[1],
       }));
     }
   };
