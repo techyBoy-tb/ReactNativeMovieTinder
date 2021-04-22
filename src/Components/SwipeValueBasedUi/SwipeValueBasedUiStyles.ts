@@ -22,16 +22,10 @@ export const styles = StyleSheet.create({
   },
   rowBack: {
     alignItems: "center",
-    backgroundColor: "green",
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     paddingLeft: 15,
-
-    height: 45,
-    top: 2.5,
-    borderTopLeftRadius: 15,
-    borderBottomLeftRadius: 15,
   },
   backRightBtn: {
     alignItems: "center",
@@ -41,12 +35,23 @@ export const styles = StyleSheet.create({
     top: 0,
     width: 75,
   },
+  backLeftBtn: {
+    backgroundColor: "blue",
+    height: 45,
+    top: 2.5,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
+    justifyContent: "center",
+    position: "absolute",
+    width: 75,
+    alignItems: "center",
+    left: 0,
+  },
   backRightBtnLeft: {
     backgroundColor: "blue",
     right: 75,
   },
   backRightBtnRight: {
-    backgroundColor: "red",
     right: 0,
     height: 45,
     top: 2.5,

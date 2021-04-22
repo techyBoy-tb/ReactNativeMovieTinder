@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import {
   Animated,
@@ -69,9 +70,14 @@ export default function SwipeValueBasedUi() {
 
   const renderHiddenItem = (data: any, rowMap: any) => (
     <View style={styles.rowBack}>
-      <TouchableOpacity onPress={() => watchedRow(rowMap, data.item.key)}>
-        <Text>Watched!</Text>
-      </TouchableOpacity>
+      <LinearGradient colors={["#ff0000", "#ff9999"]}>
+        <TouchableOpacity
+          style={styles.backLeftBtn}
+          onPress={() => watchedRow(rowMap, data.item.key)}
+        >
+          <Text>Watched!</Text>
+        </TouchableOpacity>
+      </LinearGradient>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}
         onPress={() => deleteRow(rowMap, data.item.key)}
